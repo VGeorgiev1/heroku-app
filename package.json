@@ -1,5 +1,7 @@
 {
   "name": "hello_app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "request": "^2.82.0"
+  }
 }
