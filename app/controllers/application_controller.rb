@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   def calculate
      a=params[:a].to_i
      b=params[:b].to_i			
-     render html: a+b
+     render 'hello'
   end
 end
