@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 	
 	root 'application#calculate'
 	post '/upload' => 'application#upload'
+	post '/calcCol' => 'application#calc'
 end

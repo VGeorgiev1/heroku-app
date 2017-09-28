@@ -1,5 +1,7 @@
 
 <%= stylesheet_link_tag "/css/table.css" %>
+<%= javascript_include_tag "/jquery-3.2.1" %>
+<%= javascript_include_tag "/calc" %>
 <table>
    <tr> 
         <% @info[0].each do |htd| %>
@@ -7,10 +9,19 @@
         <% end %>
    </tr>
    <% @info.drop(1).each do |row| %>
-    <tr>
+    <tr class="data">
         <% row.each do |elem| %>
             <td><%= elem %></elem></td>
         <% end %>
     </tr>
    <% end %> 
 </table>
+
+<div>
+        <%= select_tag "selected", options_for_select(@info[0]) %>
+        <button id="calcBtn">Calculate</button> 
+</div>
+<div id="result">
+      
+</div>    
+
