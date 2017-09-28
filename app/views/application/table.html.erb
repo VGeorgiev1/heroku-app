@@ -1,0 +1,16 @@
+
+<%= stylesheet_link_tag "/css/table.css" %>
+<table>
+   <tr> 
+        <% @info[0].each do |htd| %>
+            <th><%= htd %></th> 
+        <% end %>
+   </tr>
+   <% @info.drop(1).each do |row| %>
+    <tr>
+        <% row.each do |elem| %>
+            <td><%= elem %></elem></td>
+        <% end %>
+    </tr>
+   <% end %> 
+</table>
