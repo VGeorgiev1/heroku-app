@@ -1,7 +1,6 @@
 
 <%= stylesheet_link_tag "/css/table.css" %>
-<%= javascript_include_tag "/jquery-3.2.1" %>
-<%= javascript_include_tag "/calc" %>
+
 <table>
    <tr> 
         <% @info[0].each do |htd| %>
@@ -17,12 +16,13 @@
    <% end %> 
 </table>
 
+
 <div>
-        <p> Select column for calculation<p>
+    <p> Select a collum to add<p>
+    <%= form_tag({action: :calc}, multipart: true) do %>
         <%= select_tag "selected", options_for_select(@info[0]) %>
-        <button id="calcBtn">Calculate</button> 
+        <%= submit_tag("Upload") %>
+    <% end %>
 </div>
-<div id="result">
-      
-</div>    
+
 
