@@ -21,7 +21,7 @@
     <p> Select a collum to add<p>
     <%= form_tag({action: :calc}, multipart: true) do %>
         <%= select_tag "selected", options_for_select(@info[0]) %>
-        <%= submit_tag("Upload") %>
+        <%= submit_tag("Calculate") %>
     <% end %>
 </div>
 
