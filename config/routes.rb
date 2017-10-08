@@ -3,5 +3,8 @@ Rails.application.routes.draw do
 	
 	root 'application#calculate'
 	post '/upload' => 'application#upload'
-	post '/calcCol' => 'application#calc'
+	get '/calc' => 'application#calc'
+	get '/calcIf' => 'application#calcIf'
+	get '/best30' => 'application#best30'
+	get '/predict' => 'application#prediction'
 end
