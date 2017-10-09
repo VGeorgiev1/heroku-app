@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_sessions
   skip_before_action :verify_authenticity_token
   def sum
-    #file=CSV.parse(params[:file].read)
+    p params
+    file=CSV.parse(params[:file].read)
     sum=0;
     sum=file.drop(1).map{|n| n[0]}.reduce{|a, b|a.to_i+b.to_i} 
     render plain: sum  
