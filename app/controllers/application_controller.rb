@@ -1,58 +1,52 @@
+require 'csv'
+require 'linear-regression'
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_sessions
   skip_before_action :verify_authenticity_token
-  require 'csv'
-  require 'linear-regression'
-  $foo='Hello!'
-  def calculate
-     render 'hello'    
-  end
-  def upload
-    file=params[:file].read
-
-    @info = CSV.parse(file)
-    $foo=@info
-    render 'table'
-  end  
-  def calc
+  def sum
+    file=CSV.parse(params[:file].read)
     sum=0;
-    arr=$foo.drop(1).map{|n| n[0]}.reduce{|a, b| a.to_i+b.to_i} 
-    render html: arr
-  end
-  def calcIf
-    $foo.drop(1).each do |row|
+    sum=file.drop(1).map{|n| n[0]}.reduce{|a, b|a.to_i+b.to_i} 
+    render plain: arr  
+  end  
+  def filter
+    file=CSV.parse(params[:file].read)
+    sum=0;    
+    file.drop(1).each do |row|
       if row[1].to_i % 2!=0 
         sum+=row[0].to_i
       end
     end 
-    render html: sum
+    render plain: sum
   end 
-  def best30
+  def interval
     sum=0
     currow=1
     bestInc=0
-   while currow < $foo.length-30 do
+    file=CSV.parse(params[:file].read)
+   while currow < file.length-30 do
       i=0
       while i<30
-        sum+=$foo[currow+i][0].to_i;
+        sum+=file[currow+i][0].to_i;
         i+=1
       end  
       if sum > bestInc
         bestInc=sum
       end 
-     p currow
       sum=0;
       currow+=1  
    end
-    render html: bestInc
+    render plain: bestInc
   end 
   def prediction
-    ind=(1..$foo.length-1).to_a;
-    values=$foo.drop(1).map{|n| n[0].to_i}
+    file=CSV.parse(params[:file].read)
+    ind=(1..file.length-1).to_a;
+    values=file.drop(1).map{|n| n[0].to_i}
     p values.length;
     p ind.length;
     linear = Regression::Linear.new(ind, values);
-    predict = linear.predict($foo.length + 1);
-    render html: predict
+    b = linear.intercept;
+    a = linear.slope;
+    render plain: "#{a},#{b}"
   end  
 end
